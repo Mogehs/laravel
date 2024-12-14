@@ -5,7 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use App\Models\User; // Import the User model
-use App\Models\Service; // Import the Service model
+use App\Models\Services; // Import the Service model
 
 class Bookings extends Model
 {
@@ -27,7 +27,8 @@ class Bookings extends Model
         'address',
         'requirements',
         'service_preffer_date',
-        'service_time'
+        'service_time',
+        'service_provider_id',
     ];
 
     /**
@@ -43,6 +44,11 @@ class Bookings extends Model
      */
     public function service()
     {
-        return $this->belongsTo(Service::class, 'service_id', 'service_id');
+        return $this->belongsTo(Services::class, 'service_id', 'service_id');
+    }
+    
+    public function serviceProvider()
+    {
+        return $this->belongsTo(ServiceProviderApplication::class, 'service_provider_id');
     }
 }

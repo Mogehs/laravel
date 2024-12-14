@@ -14,9 +14,10 @@ class BookingController extends Controller
     }
 
      public function addBooking(Request $request,$id){
-        $booking = Bookings::create([
+         Bookings::create([
             'user_id' => auth()->id(), 
-            'service_id' => $id,        
+            'service_id' => $id,
+            'service_provider_id'=>$request->input('service_provider_id'),        
             'service_date' => now(),  
             'status' => 'pending',    
             'name' =>$request->input('name'),
@@ -36,7 +37,7 @@ class BookingController extends Controller
         $newStatus = $request->input('status'); 
         $booking->status = $newStatus;
         $booking->save();
-        return redirect('/myAdminDashboard');
+        return redirect()->back();
 
     }
     

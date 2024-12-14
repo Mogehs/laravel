@@ -143,7 +143,6 @@
             <th scope="col">Service Preferred Date</th> <!-- New Column -->
             <th scope="col">Service Time</th> <!-- New Column -->
             <th scope="col">Status</th>
-            <th scope="col">Action</th>
         </tr>
     </thead>
     <tbody>
@@ -155,29 +154,6 @@
             <td>{{ $order->service_preffer_date }}</td> <!-- Display Service Preferred Date -->
             <td>{{ $order->service_time }}</td> <!-- Display Service Time -->
             <td>{{ $order->status }}</td>
-            <td>
-                <!-- Done Button -->
-                <form action="{{ route('update.myAdminOrderStatus', [ $order->booking_id]) }}" method="POST" style="display:inline;">
-                    @csrf
-                    @method('PUT')
-                    <input type="hidden" name="status" value="Completed">
-                    <button type="submit" class="btn btn-success" style="height:30px; width:70px; padding:0;" 
-                            @if($order->status != 'Pending') disabled @endif>
-                        <span style="color:white; font-size:0.8rem;">Done</span>
-                    </button>
-                </form>
-
-                <!-- Rejected Button (Only enabled if status is Pending) -->
-                <form action="{{ route('update.myAdminOrderStatus', [ $order->booking_id]) }}" method="POST" style="display:inline;">
-                    @csrf
-                    @method('PUT')
-                    <input type="hidden" name="status" value="Cancelled">
-                    <button type="submit" class="btn btn-danger" style="height:30px; width:80px; padding:0;" 
-                            @if($order->status != 'Pending') disabled @endif>
-                        <span style="color:white; font-size:0.8rem;">Rejected</span>
-                    </button>
-                </form>
-            </td>
         </tr>
     @endforeach
     </tbody>

@@ -13,4 +13,11 @@ class Services extends Model
     protected $fillable = ['service_name', 'service_description', 'price','service_img1','service_img2','service_img3','service_sub1',
         'service_sub2',
         'service_sub3',];
+
+
+    public function serviceProviderApplications()
+    {
+        return $this->hasMany(ServiceProviderApplication::class);
+    }
+
 }

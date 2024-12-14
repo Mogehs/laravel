@@ -22,14 +22,13 @@
 								<div class="service-block_one col-lg-6 col-md-6 col-sm-12">
 									<div class="service-block_one-inner">
 										<div class="service-block_one-upper">
-											<div class="service-block_one-icon"><img src="assets/images/icons/ac-service.png" alt="" /></div>
+											<div class="service-block_one-icon"><img src="{{ asset('storage/'.$service->service_img3) }}" alt="" /></div>
 											<h5 class="service-block_one-heading"><a href="{{ route('my.ServiceDetails', ['service_id' => $service['service_id']]) }}">{{ $service['service_name'] }}</a></h5>
 										</div>
 										<div class="service-block_one-text">{{ substr($service['service_description'], 0, 130) }}... See More</div>
 									</div>
 								</div>
-@endforeach
-								
+							@endforeach
 							</div>
 						</div>
 					</div>

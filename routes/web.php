@@ -7,12 +7,10 @@ use App\Http\Controllers\MyDashboardController;
 use App\Http\Controllers\TestimonialController;
 use App\Http\Controllers\BookingController;
 use App\Http\Controllers\Controller;
-use App\Http\Controllers\DashboardController;
-use App\Http\Controllers\UserController;
-use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Route;
-use Illuminate\Support\Facades\Log;
-use App\Http\Controllers\BotManController;
+use App\Http\Controllers\ServiceProviderApplicationController;
+use App\Http\Controllers\ServiceProviderDashboardController;
+use Carbon\Laravel\ServiceProvider;
 
 /*
 |--------------------------------------------------------------------------
@@ -38,6 +36,19 @@ Route::get('/myBlogs',[Controller::class,'myBlogs'])->name('my.Blogs');
 Route::get('/myBlogDetails/{id}',[Controller::class,'myBlogDetails'])->name('my.BlogDetails');
 Route::get('/myServices',[Controller::class,'myServices'])->name('my.Services');
 Route::get('/myServiceDetails/{service_id}',[Controller::class,'myServiceDetails'])->name('my.ServiceDetails');
+
+//updates
+Route::get('/myApplication',[Controller::class,'myApplication'])->name('my.Application');
+Route::post('/apply-service-provider', [ServiceProviderApplicationController::class, 'store'])->name('apply-service-provider')
+    ->middleware('auth'); 
+
+Route::get('/manageApplication',[ServiceProviderApplicationController::class, 'manageApplication'])->name('manage-application');
+Route::post('/service-provider-applications/{id}/update-status', [ServiceProviderApplicationController::class, 'updateStatus'])->name('update-application-status');
+
+Route::middleware(['auth'])->group(function () {
+    Route::get('/service-provider/dashboard/{id}', [ServiceProviderDashboardController::class, 'index'])->name('provider.dashboard');
+    Route::get('/service-provider/details/{id}',[Controller::class , 'serviceProviderDetails'])->name('service-provider.detail');
+});
 
 //Register & Login
 Route::middleware('redirect.dashboard')->group(function () {

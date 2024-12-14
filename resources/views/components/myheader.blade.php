@@ -95,12 +95,13 @@
                                 <div class="navbar-collapse collapse clearfix" id="navbarSupportedContent">
                                     <ul class="navigation clearfix">
                                         <li><a href="{{ route('my.Home') }}">Home</a></li>
+                                        <li><a href="{{ route('my.Services') }}">Services</a></li>
+                                        <li><a href="{{ route('my.Testimonial') }}">Testimonial</a></li>
+                                        <li><a href="{{ route('my.Blogs') }}">Blog</a></li>
                                         <li><a href="{{ route('my.About') }}">About</a></li>
                                         <li><a href="{{ route('my.Faq') }}">FAQ's</a></li>
-                                        <li><a href="{{ route('my.Testimonial') }}">Testimonial</a></li>
-                                        <li><a href="{{ route('my.Services') }}">Services</a></li>
-                                        <li><a href="{{ route('my.Blogs') }}">Blog</a></li>
                                         <li><a href="{{ route('my.Contact') }}">Contact</a></li>
+                                        <li><a href="{{ route('my.Application') }}">Service Provider</a></li>
                                     </ul>
                                 </div>
                             </nav>

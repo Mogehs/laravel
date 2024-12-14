@@ -29,7 +29,7 @@
                         <div class="service-block_one-inner">
                             <div class="service-block_one-upper">
                                 <div class="service-block_one-icon">
-                                    <img src="{{ asset('assets/images/icons/ac-service.png') }}" alt="Service Icon" />
+                                    <img src="{{ asset('storage/'.$service->service_img3) }}" alt="Service Icon" />
                                 </div>
                                 <h5 class="service-block_one-heading">
                                     <a href="{{ route('my.ServiceDetails', ['service_id' => $service['service_id']]) }}">

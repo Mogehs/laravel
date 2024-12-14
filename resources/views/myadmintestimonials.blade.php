@@ -23,10 +23,6 @@
       <div class="card">
         <div class="card-body">
           <h5 class="card-title">Testimonials</h5>
-          <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Dolorum quaerat, veritatis officiis illum
-            sequi, impedit necessitatibus quod repellendus animi voluptatum tempore nesciunt quisquam nobis fugit
-            facere dicta illo ratione eaque.</p>
-
           <!-- Table with stripped rows -->
           <table class="table datatable">
             <thead>

@@ -80,7 +80,7 @@
                         </div>
 
                         <div class="credits">
-                            Designed by <a href="#">The Home Team</a>
+                            Developed by <a href="#">The Home Team</a>
                         </div>
 
                     </div>

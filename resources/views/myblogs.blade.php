@@ -18,11 +18,11 @@
     <!-- End Page Title -->
 
 	<!-- News One -->
-@include('components.myBlogsShow', ['blogs' => $blogs])
+	@include('components.myBlogsShow', ['blogs' => $blogs])
 	<!-- End News One -->
 
 	<!-- Marketing One -->
-@include('components.mymarketing')
+	@include('components.mymarketing')
 	<!-- End Marketing One -->
 	
 	<!-- Footer Style -->

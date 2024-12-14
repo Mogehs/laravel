@@ -1,7 +1,5 @@
 <!DOCTYPE html>
 <html>
-<head>
-
 @include('components.myheader', ['title' => $title ?? 'Default Title'])
 
 	

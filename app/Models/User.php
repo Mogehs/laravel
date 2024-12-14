@@ -67,21 +67,6 @@ class User extends Authenticatable implements MustVerifyEmail
         return $this->hasOne(Admin::class)->exists();
     }
 
-    public function wallets(){
-        return $this->hasMany(Wallet::class);
-    }
-    public function wallet(){
-        return $this->hasOne(Wallet::class);
-    }
-    public function rides(){
-        return $this->hasMany(Ride::class);
-    }
-    public function comments(){
-        return $this->hasMany(Comment::class);
-    }
-    public function interests(){
-        return $this->hasMany(Interest::class);
-    }
     public function admin()
 {
     return $this->hasOne(Admin::class, 'user_id');

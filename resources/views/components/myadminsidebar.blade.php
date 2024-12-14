@@ -10,6 +10,16 @@
       </a>
     </li>
 
+    <!-- Service provider applications -->
+    @if(auth()->user() && in_array(auth()->user()->role, ['admin']))
+      <li class="nav-item">
+        <a class="nav-link collapsed" href="{{ route('manage-application') }}">
+          <i class="bi bi-journal-text"></i>
+          <span>Applications</span>
+        </a>
+      </li>
+    @endif
+
     <!-- Services Section (Visible only to Services Manager) -->
     @if(auth()->user() && auth()->user()->role == 'admin' || auth()->user()->role == 'services_manager')
       <li class="nav-item">

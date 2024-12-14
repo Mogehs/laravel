@@ -6,15 +6,13 @@ use App\Models\Faqs;
 use App\Models\Testimonial;
 use App\Models\Services;
 use App\Models\User;
-use App\Models\FaqController;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Foundation\Validation\ValidatesRequests;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller as BaseController;
-use Illuminate\Support\Facades\Route;
-use Spatie\Sitemap\Tags\Url;
+use App\Models\ServiceProviderApplication;
+use Carbon\Laravel\ServiceProvider;
 use Illuminate\Support\Facades\Hash;
-use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Auth;
 
 
@@ -167,29 +165,42 @@ class Controller extends BaseController
 
         // return $blog['details'];
         return view('myblogdetails',compact('title','blog'));
-    }
-        
-    public function myServices(){
-        $services = Services::all();  
-        return  view("myservices",['title' => 'Services | The Home Team','services'=>$services]);
-    }
+        }
+            
+        public function myServices(){
+            $services = Services::all();  
+            return  view("myservices",['title' => 'Services | The Home Team','services'=>$services]);
+        }
 
-    public function myServiceDetails($id){
-        $service = Services::find($id);  
-        return  view("myservicesdetails",['title' => 'Services | The Home Team','service'=>$service]);
-    }
+        public function myServiceDetails($id){
+            $service = Services::find($id);  
+            if (!$service) {
+                return redirect()->route('my.Home')->with('error', 'Service not found.');
+            }
+
+            $approvedApplications = ServiceProviderApplication::where('service_id', $id)
+                ->where('application_status', 'approved')
+                ->with('user') 
+                ->get();
+
+            return view("myservicesdetails", [
+                'title' => 'Services | The Home Team',
+                'service' => $service,
+                'providers' => $approvedApplications
+            ]);
+        }
 
 
-    public function myFaq(){
-    $pageTitle = "FAQs | The Home Team";
-    $faqs = Faqs::all();
-    $data = compact("faqs");
+        public function myFaq(){
+        $pageTitle = "FAQs | The Home Team";
+        $faqs = Faqs::all();
+        $data = compact("faqs");
 
-    return view('myfaq', ['title' => 'Faqs | The Home Team'])->with($data);
-    }
+        return view('myfaq', ['title' => 'Faqs | The Home Team'])->with($data);
+        }
 
 
-    public function myRegister(){
+        public function myRegister(){
         return view('myregister', ['title' => 'Register | The Home Team']);
         }
 
@@ -202,7 +213,6 @@ class Controller extends BaseController
                 'terms' => 'required',
             ]);
     
-          // Assuming you want to create a user and link it to an admin
                 $user = User::create([
                 'name' => $request->name,
                 'email' => $request->email,
@@ -290,15 +300,41 @@ class Controller extends BaseController
         }
 
         public function updateRole(Request $request, $id)
-{
-   
+        {
+        
+            $user = User::findOrFail($id);
+            $user->role = $request->role;
+            $user->save();
 
-    $user = User::findOrFail($id);
+            return redirect()->back()->with('success', 'Role updated successfully.');
+        }
 
-    $user->role = $request->role;
-    $user->save();
 
-    return redirect()->back()->with('success', 'Role updated successfully.');
-}
+        public function myApplication(){
+            $application = ServiceProviderApplication::where('user_id', Auth::id())->first();
+            $services = Services::all();
+            return view('myapplication',['title'=>'Applications | The Home Team','services'=>$services,'application'=>$application]);
+
+        }
+
+        public function serviceProviderDetails($id)
+        {
+            $user = User::findOrFail($id);
+            $serviceProvider = ServiceProviderApplication::where('user_id', $id)->first();
+            $service = ServiceProviderApplication::with('service')
+            ->where('user_id',$id)
+            ->firstOrFail();
+
+            return view('serviceproviderdetails', [
+                'title' => 'Details | The Home Team',
+                'user' => $user,
+                'service'=>$service,
+                'service_provider'=>$serviceProvider
+            ]);
+        }
+
+
+
+
 
 }

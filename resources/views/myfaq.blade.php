@@ -1,7 +1,5 @@
 <!DOCTYPE html>
 <html>
-<!DOCTYPE html>
-<html>
 @include('components.myheader', ['title' => $title ?? 'Default Title'])
 	
 	<!-- Sidebar Cart Item -->
@@ -65,7 +63,7 @@
 	<!-- Faq Two -->
 
 	<!-- Marketing One -->
-@include("components.mymarketing")
+	@include("components.mymarketing")
 	<!-- End Marketing One -->
 	
 	<!-- Footer Style -->

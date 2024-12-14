@@ -4,69 +4,7 @@
 
 @include("components.myheader")
 
-<style>
-        .service-request-container {
-            background-color: white;
-            padding: 30px;
-            border-radius: 8px;
-            max-width: 600px;
-            margin: auto;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-        }
 
-        .form-heading {
-            text-align: center;
-            font-family: Arial, sans-serif;
-            font-size: 2rem;
-            font-weight: bold;
-            color: #C69D33;
-            margin-bottom: 20px;
-        }
-
-        .service-request-form {
-            display: flex;
-            flex-direction: column;
-        }
-
-        .form-group {
-            margin-bottom: 20px;
-            text-align: left;
-        }
-
-        label {
-            display: block;
-            margin-bottom: 8px;
-            font-weight: bold;
-            color: #333;
-        }
-
-        input[type="text"], textarea {
-            width: 100%;
-            padding: 10px;
-            font-size: 1rem;
-            border-radius: 4px;
-            border: 1px solid #ccc;
-        }
-
-        textarea {
-            resize: vertical;
-        }
-
-        button.btn-submit {
-            background-color: #C69D33;
-            color: white;
-            padding: 12px 25px;
-            font-size: 1rem;
-            border: none;
-            border-radius: 4px;
-            cursor: pointer;
-            font-weight: bold;
-        }
-
-        button.btn-submit:hover {
-            background-color: #a67c29;
-        }
-    </style>
     <style>
         .testimonial-container {
             background-color: white;
@@ -174,18 +112,6 @@
                 </div>
             </div>
             <p>{{ $service['service_description'] }}</p>
-            <!-- <ul class="service-detail_list">
-                <li>Comprehensive Air Conditioner Maintenance & Repairs</li>
-                <li>Safe Process & Original Parts Used</li>
-                <li>Experienced & Well-trained Technicians</li>
-                <li>Customized Doorstep Service</li>
-                <li>Excellent Customer Support</li>
-            </ul> -->
-
-            <div class="service-detail_video">
-                <img src="{{ asset('assets/images/resource/service-3.jpg') }}" alt="" />
-                <a href="https://www.youtube.com/watch?v=YS3PwmOQ1Fc" class="lightbox-video services-one_play"><span class="fa fa-play"><i class="ripple"></i></span></a>
-            </div>
 
             <!-- Accordion Box -->
             <ul class="accordion-box">
@@ -217,78 +143,58 @@
 </section>
 <!-- End Service Detail -->
 
+
+<div class="m-3">
+   
+<h2 class="testimonial-heading">Following Service Providers Are Currently Available</h2>
+  <div class="container row">
+  @foreach($providers as $provider){
+        <div class="card" style="width: 18rem;">
+            <div class="card-body">
+                <h5 class="card-title">{{$provider->user->name}}</h5>
+                <h6 class="card-subtitle mb-2 text-body-secondary">{{$provider->user->country}}</h6>
+                <p class="card-text">{{$provider->user->about}}</p>
+                <a href="{{ route('service-provider.detail', ['id' => $provider->user->id]) }}" class="card-link">View Details & Order</a>
+                </div>
+            </div>
+     
+    }
+    @endforeach 
+  </div>
+
+</div>
+
+
 <!-- CTA Two -->
 <div class= "row">
-<div class="service-request-container"> 
-    <h2 class="testimonial-heading">Service Request Form</h2>
-    <form method="POST" action="{{ route('add.Booking', $service['service_id']) }}" class="service-request-form">
-        @csrf
-        <!-- Name Input -->
-        <div class="form-group">
-            <label for="name">Name:</label>
-            <input type="text" id="name" name="name" placeholder="Enter your name" required>
+        @if(session('success'))
+        <div class="alert alert-success">
+            {{ session('success') }}
         </div>
+        @endif
 
-        <!-- Address Input -->
-        <div class="form-group">
-            <label for="address">Address:</label>
-            <input type="text" id="address" name="address" placeholder="Enter your address" required>
-        </div>
-
-        <!-- Description Input -->
-        <div class="form-group">
-            <label for="description">Description:</label>
-            <textarea id="description" name="requirements" rows="4" placeholder="Describe your requirements" required></textarea>
-        </div>
-
-        <!-- Date Input -->
-        <div class="form-group">
-            <label for="service_date">Preferred Service Date:</label>
-            <input type="date" id="service_date" name="service_date" required>
-        </div>
-
-        <!-- Time Input -->
-        <div class="form-group">
-            <label for="service_time">Preferred Service Time:</label>
-            <input type="time" id="service_time" name="service_time" required>
-        </div>
-
-        <!-- Submit Button -->
-        <button type="submit" class="btn-submit">Book Service Now</button>
-    </form>
-</div>
-    </div>
-    @if(session('success'))
-    <div class="alert alert-success">
-        {{ session('success') }}
-    </div>
-@endif
-
-<!-- Testimonial Form -->
- <div class="row">
-<div class="testimonial-container">
-        <div class="testimonial-form">
-            <h2 class="testimonial-heading">We'd Love to Hear Your Feedback!</h2>
-            <p class="testimonial-subheading">Tell us what you think about our services.</p>
-            
-            <form action="{{route('my.Testimonial')}}" method="POST">
-                @csrf
-                <div class="form-group">
-                    <label for="name">Your Name</label>
-                    <input type="text" id="name" name="name" class="form-control" placeholder="Your Name" required>
-                </div>
-                <div class="form-group">
-                    <label for="name">Service You Get</label>
-                    <input type="text" id="name" name="service" class="form-control" placeholder="Write Service Here" required>
-                </div>
-                <div class="form-group">
-                    <label for="testimonial">Your Testimonial</label>
-                    <textarea id="testimonial" name="testimonial" class="form-control" rows="5" placeholder="Write your testimonial..." required></textarea>
-                </div>
-				
-
-                <button type="submit" class="btn-submit">Submit Testimonial</button>
-            </form>
+    <!-- Testimonial Form -->
+    <div class="row">
+    <div class="testimonial-container">
+            <div class="testimonial-form">
+                <h2 class="testimonial-heading">We'd Love to Hear Your Feedback!</h2>
+                <p class="testimonial-subheading">Tell us what you think about our services.</p>
+                <form action="{{route('my.Testimonial')}}" method="POST">
+                    @csrf
+                    <div class="form-group">
+                        <label for="name">Your Name</label>
+                        <input type="text" id="name" name="name" class="form-control" placeholder="Your Name" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="name">Service You Get</label>
+                        <input type="text" id="name" name="service" class="form-control" placeholder="Write Service Here" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="testimonial">Your Testimonial</label>
+                        <textarea id="testimonial" name="testimonial" class="form-control" rows="5" placeholder="Write your testimonial..." required></textarea>
+                    </div>
+                    <button type="submit" class="btn-submit">Submit Testimonial</button>
+                </form>
         </div>
 </div>
 </div>
