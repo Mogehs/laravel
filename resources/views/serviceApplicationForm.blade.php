@@ -121,55 +121,57 @@
 
 
 
-<h3 class="p-5">Service Providers</h3>
-@if(count($providers) !=0)
-<div class="container">
-    <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 gap-2">
-        @foreach($providers as $provider)
-        <div class="col">
-            <div class="card">
-                <div class="card-body">
-                    <h5 class="card-title">{{$provider->user->name}}</h5>
-                    <h6 class="card-subtitle mb-2 text-body-secondary">{{$provider->user->country}}</h6>
-                    <p class="card-text">{{$provider->user->about}}</p>
-                    <a href="{{ route('service-provider.detail', ['id' => $provider->user->id]) }}" class="card-link">View Details & Order</a>
-                </div>
-            </div>
-        </div>
-        @endforeach
-    </div>
-</div>
-@else
-<div class="text-black p-5">No Provider</div>
-@endif
-
-
 <!-- End Page Title -->
 @if(session('success'))
-<div class="alert alert-success pt-4">
+<div class="alert alert-success">
     {{ session('success') }}
 </div>
 @endif
 
 <div class="service-request-container" style="margin: 4rem 20rem;">
 
-    @if($application)
-    @if($application->application_status == 'pending')
-    <p class="message" style="margin:4rem 0rem;">Your application is under review. Check back later!</p>
-    @elseif($application->application_status == 'approved')
-    <p class="message" style="margin:4rem 0rem;">Congratulations! Your application has been approved.</p>
-    <a href="{{route('provider.dashboard',['id' => Auth::id()])}}"><button class="btn-navigate">Go to Dashboard</button></a>
-    @elseif($application->application_status == 'rejected')
-    <p class="message">Your previous application was rejected.</p>
-    <h2 class="form-heading">Apply To Be A Service Provider</h2>
-    <a href="{{route('service-application-form')}}"><button class="btn-submit">Join Us Now!</button></a>
-    @endif
-    @else
-    <p class="message">You have not applied yet. Fill out the form below to get started!</p>
-    <h2 class="form-heading">Apply To Be A Service Provider</h2>
-    <a href="{{route('service-application-form')}}"><button class="btn-submit">Join Us Now!</button></a>
 
-    @endif
+    <form class="service-request-form" action="{{ route('apply-service-provider') }}" method="POST">
+        @csrf
+        <!-- Full Name -->
+        <div class="form-group">
+            <label for="full_name">Full Name</label>
+            <input type="text" id="full_name" name="full_name" placeholder="Full Name" required>
+        </div>
+
+        <!-- Location -->
+        <div class="form-group">
+            <label for="location">Location</label>
+            <input type="text" id="location" name="location" placeholder="Enter your location" required>
+        </div>
+
+        <!-- Experience -->
+        <div class="form-group">
+            <label for="experience">Experience</label>
+            <textarea id="experience" name="experience" rows="4" placeholder="Describe your experience" required></textarea>
+        </div>
+
+        <!-- Services Dropdown -->
+        <div class="form-group">
+            <label for="service_id">Service You Can Provide</label>
+            <select id="service_id" name="service_id" required>
+                <option value="">Select a service</option>
+                @foreach($services as $service)
+                <option value="{{ $service->service_id}}">{{ $service->service_name }}</option>
+                @endforeach
+            </select>
+        </div>
+
+        <!-- Why We Should Hire You -->
+        <div class="form-group">
+            <label for="reason">Why Should We Hire You?</label>
+            <textarea id="reason" name="reason" rows="4" placeholder="Explain why you are the best fit for this role" required></textarea>
+        </div>
+
+        <!-- Submit Button -->
+        <button type="submit" class="btn-submit">Submit Application</button>
+    </form>
+
 </div>
 <div class="progress-wrap">
     <svg class="progress-circle svg-content" width="100%" height="100%" viewBox="-1 -1 102 102">

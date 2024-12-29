@@ -12,15 +12,7 @@
                 </div>
                 <div class="column col-lg-6 col-md-6 col-sm-12">
                     <!-- Subscribe Box -->
-                    <div class="subscribe-box">
-                        <form method="POST" action="">
-                            @csrf
-                            <div class="form-group">
-                                <input type="email" name="email" value="" placeholder="Enter Your Email" required>
-                                <button type="submit">Subscribe</button>
-                            </div>
-                        </form>
-                    </div>
+                  
                 </div>
             </div>
         </div>
@@ -58,7 +50,7 @@
                     <div class="footer-widget contact-widget">
                         <h5>Contact Us</h5>
                         <ul class="footer-contact_list">
-                            <li><span>PH:</span> +92305***</li>
+                            <li><span>PH:</span> +923053331709</li>
                             <li><span>EM:</span> homemaintainance@gmail.com</li>
                             <li><span>LO:</span> COMSATS University Islamabad, <br> Sahiwal Campus</li>
                         </ul>

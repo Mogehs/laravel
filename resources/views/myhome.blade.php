@@ -143,7 +143,7 @@
 						</div>
 						<div class="welcome-one_phone">
 							<span class="fa fa-phone"></span>
-							<a href=>+34640225587</a>
+							<a href=>+923053331709</a>
 						</div>
 					</div>
 				</div>
@@ -154,10 +154,10 @@
 					<p>Our expert team is dedicated to ensuring your home is safe, efficient, and comfortable through quality repairs and upkeep.</p>
 					<p>We specialize in providing tailored solutions to address all your home maintenance needs, from minor repairs to major renovations. With a commitment to excellence and customer satisfaction, we ensure that every task is handled with precision and care. Our skilled professionals use the latest tools and techniques to deliver reliable and long-lasting results.
 
-Whether it's plumbing, electrical work, HVAC servicing, or general upkeep, we take pride in being your one-stop solution for maintaining a well-functioning and inviting home. Trust us to protect your investment and enhance your living space with services designed to keep your home in peak condition all year round.
-</p>
+					Whether it's plumbing, electrical work, HVAC servicing, or general upkeep, we take pride in being your one-stop solution for maintaining a well-functioning and inviting home. Trust us to protect your investment and enhance your living space with services designed to keep your home in peak condition all year round.
+					</p>
 
-<p>Let us take the stress out of home maintenance so you can focus on what matters most—enjoying your home to the fullest.</p>
+					<p>Let us take the stress out of home maintenance so you can focus on what matters most—enjoying your home to the fullest.</p>
 				</div>
 			</div>
 		</div>

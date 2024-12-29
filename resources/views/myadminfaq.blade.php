@@ -1,9 +1,10 @@
 <!DOCTYPE html>
 <html lang="en">
 @include("components.myadminheader",['title' => $title ?? 'Default Title'])
+
 <body>
-@include("components.myadminhelperheader")
-@include("components.myadminsidebar", ['services' => $allServices]);
+    @include("components.myadminhelperheader")
+    @include("components.myadminsidebar", ['services' => $allServices]);
     <main id="main" class="main">
 
         <div class="pagetitle">
@@ -24,17 +25,13 @@
                     <div class="card basic">
                         <div class="card-body">
                             <h5 class="card-title">FAQS</h5>
-@foreach($faqs as $faq)
+                            @foreach($faqs as $faq)
                             <div>
                                 <h6>{{$faq->faq_question}}</h6>
                                 <p>{{$faq->faq_answer}}</p>
-                               <a href="{{route('del.faq',['faq_id' => $faq->faq_id])}}"> <button type="button" class="btn btn-danger">Delete</button></a>
+                                <a href="{{route('del.faq',['faq_id' => $faq->faq_id])}}"> <button type="button" class="btn btn-danger">Delete</button></a>
                             </div>
-@endforeach
-                            
-
-                          
-
+                            @endforeach
                         </div>
                     </div>
 
@@ -48,14 +45,14 @@
                         <form action="{{ url('/') }}/myAdminFaq" method="POST">
                             @csrf
                             <div class="row mb-3">
-                                <label for="service-title" class="col-sm-4 col-form-label" style="color:white;">New Question</label>
-                                <div class="col-sm-20">
+                                <label for="service-title" class="col-sm-4 col-form-label">New Question</label>
+                                <div class=" col-sm-20">
                                     <input type="text" class="form-control" name="question" id="service-title">
                                 </div>
                             </div>
                             <div class="row mb-3">
-                                <label for="service-details" class="col-sm-4 col-form-label" style="color:white;">Answer</label>
-                                <div class="col-sm-20">
+                                <label for="service-details" class="col-sm-4 col-form-label">Answer</label>
+                                <div class=" col-sm-20">
                                     <textarea class="form-control" style="height: 100px" name="answer" id="service-details"></textarea>
                                 </div>
                             </div>
@@ -94,5 +91,5 @@
     <script src="{{ asset('assets2/js/main.js') }}"></script>
 
 </body>
-</html>
 
+</html>

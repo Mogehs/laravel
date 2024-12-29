@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Http\Controllers;
 
 use App\Models\Admin;
@@ -11,6 +12,7 @@ use Illuminate\Foundation\Validation\ValidatesRequests;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller as BaseController;
 use App\Models\ServiceProviderApplication;
+use App\Models\ServiceProviderProfile;
 use Carbon\Laravel\ServiceProvider;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Auth;
@@ -21,8 +23,9 @@ class Controller extends BaseController
     use AuthorizesRequests, ValidatesRequests;
 
 
-    
-    public function myHome(){
+
+    public function myHome()
+    {
         $blogs = [
             [
                 "id" => 1,
@@ -57,26 +60,30 @@ class Controller extends BaseController
                 "conclusion" => "A well-designed outdoor living space can extend the functionality of your home and provide a peaceful retreat right in your backyard. Whether you're looking to create a cozy nook or a social gathering spot, The Home Team is here to help you every step of the way. Let us help you transform your outdoor space into a haven where you can relax and unwind in comfort."
             ]
         ];
-        $services = Services::all();  
+        $services = Services::all();
 
-        return  view("myhome",['title' => 'Home | The Home Team','blogs'=>$blogs,'services'=>$services]);
+        return  view("myhome", ['title' => 'Home | The Home Team', 'blogs' => $blogs, 'services' => $services]);
     }
 
-    public function myAbout(){
-        $services = Services::all();  
-        return  view("myabout",['title' => 'About Us | The Home Team','services'=>$services]);
+    public function myAbout()
+    {
+        $services = Services::all();
+        return  view("myabout", ['title' => 'About Us | The Home Team', 'services' => $services]);
     }
 
-    public function myTestimonial(){
-        $testimonials = Testimonial::all();  
-        return  view("mytestimonial",['title' => 'Testimonials | The Home Team','testimonials'=>$testimonials]);
+    public function myTestimonial()
+    {
+        $testimonials = Testimonial::all();
+        return  view("mytestimonial", ['title' => 'Testimonials | The Home Team', 'testimonials' => $testimonials]);
     }
 
-    public function myContact(){
-        return  view("mycontact",['title' => 'Contact Us | The Home Team']);
+    public function myContact()
+    {
+        return  view("mycontact", ['title' => 'Contact Us | The Home Team']);
     }
 
-    public function myBlogs(){
+    public function myBlogs()
+    {
         $title = 'Blogs | The Home Team';
         $blogs = [
             [
@@ -112,13 +119,14 @@ class Controller extends BaseController
                 "conclusion" => "A well-designed outdoor living space can extend the functionality of your home and provide a peaceful retreat right in your backyard. Whether you're looking to create a cozy nook or a social gathering spot, The Home Team is here to help you every step of the way. Let us help you transform your outdoor space into a haven where you can relax and unwind in comfort."
             ]
         ];
-        
-        
-        
-        return  view("myblogs",compact('title','blogs'));
+
+
+
+        return  view("myblogs", compact('title', 'blogs'));
     }
 
-    public function myBlogDetails($id){
+    public function myBlogDetails($id)
+    {
         $title = 'Blogs | The Home Team';
         $blogs = [
             [
@@ -154,9 +162,9 @@ class Controller extends BaseController
                 "conclusion" => "A well-designed outdoor living space can extend the functionality of your home and provide a peaceful retreat right in your backyard. Whether you're looking to create a cozy nook or a social gathering spot, The Home Team is here to help you every step of the way. Let us help you transform your outdoor space into a haven where you can relax and unwind in comfort."
             ]
         ];
-        
-        
-        
+
+
+
         $blog = collect($blogs)->firstWhere('id', $id);
 
         if (!$blog) {
@@ -164,177 +172,183 @@ class Controller extends BaseController
         }
 
         // return $blog['details'];
-        return view('myblogdetails',compact('title','blog'));
-        }
-            
-        public function myServices(){
-            $services = Services::all();  
-            return  view("myservices",['title' => 'Services | The Home Team','services'=>$services]);
-        }
+        return view('myblogdetails', compact('title', 'blog'));
+    }
 
-        public function myServiceDetails($id){
-            $service = Services::find($id);  
-            if (!$service) {
-                return redirect()->route('my.Home')->with('error', 'Service not found.');
-            }
+    public function myServices()
+    {
+        $services = Services::all();
+        return  view("myservices", ['title' => 'Services | The Home Team', 'services' => $services]);
+    }
 
-            $approvedApplications = ServiceProviderApplication::where('service_id', $id)
-                ->where('application_status', 'approved')
-                ->with('user') 
-                ->get();
-
-            return view("myservicesdetails", [
-                'title' => 'Services | The Home Team',
-                'service' => $service,
-                'providers' => $approvedApplications
-            ]);
+    public function myServiceDetails($id)
+    {
+        $service = Services::find($id);
+        if (!$service) {
+            return redirect()->route('my.Home')->with('error', 'Service not found.');
         }
 
+        $approvedApplications = ServiceProviderApplication::where('service_id', $id)
+            ->where('application_status', 'approved')
+            ->with('user')
+            ->get();
 
-        public function myFaq(){
+        return view("myservicesdetails", [
+            'title' => 'Services | The Home Team',
+            'service' => $service,
+            'providers' => $approvedApplications
+        ]);
+    }
+
+
+    public function myFaq()
+    {
         $pageTitle = "FAQs | The Home Team";
         $faqs = Faqs::all();
         $data = compact("faqs");
 
         return view('myfaq', ['title' => 'Faqs | The Home Team'])->with($data);
-        }
+    }
 
 
-        public function myRegister(){
+    public function myRegister()
+    {
         return view('myregister', ['title' => 'Register | The Home Team']);
+    }
+
+    public function addRegister(Request $request)
+    {
+        $request->validate([
+            'name' => 'required|string|max:255',
+            'email' => 'required|string|email|max:255|unique:users',
+            'password' => 'required|string|min:8|confirmed',
+            'terms' => 'required',
+        ]);
+
+        $user = User::create([
+            'name' => $request->name,
+            'email' => $request->email,
+            'password' => Hash::make($request->password),
+            'is_admin' => false,
+
+        ]);
+
+        Admin::create([
+            'user_id' => $user->id,
+        ]);
+
+
+        return redirect('/myLogin')->with('success', 'Account created successfully!');
+    }
+
+
+
+    public function myLogin()
+    {
+        return view('mylogin', ['title' => 'Login | The Home Team']);
+    }
+
+    public function addLogin(Request $request)
+    {
+        $credentials = $request->validate([
+            'email' => 'required|email',
+            'password' => 'required|string',
+        ]);
+
+        if (Auth::attempt($credentials, $request->remember)) {
+            $request->session()->regenerate();
+
+            return redirect('/myAdminDashboard');
         }
 
-        public function addRegister(Request $request)
-        {
-            $request->validate([
-                'name' => 'required|string|max:255',
-                'email' => 'required|string|email|max:255|unique:users',
-                'password' => 'required|string|min:8|confirmed',
-                'terms' => 'required',
-            ]);
-    
-                $user = User::create([
-                'name' => $request->name,
-                'email' => $request->email,
-                'password' => Hash::make($request->password),
-                'is_admin' => false, 
-                
-            ]);
+        return back()->withErrors([
+            'email' => 'The provided credentials do not match our records.',
+        ])->onlyInput('email');
+    }
 
-                Admin::create([
-                 'user_id' => $user->id,
-            ]);
+    public function myLogout(Request $request)
+    {
+        Auth::logout();
+        $request->session()->invalidate();
+        $request->session()->regenerateToken();
 
-    
-            return redirect('/myLogin')->with('success', 'Account created successfully!');
+        return redirect('/myHome');
+    }
+
+    public function showAdminList()
+    {
+        $services = Services::all();
+        $adminUsers = User::where('is_admin', true)->get();
+        $simpleUsers = User::where('is_admin', false)->get();
+        return view('myadminlist', ['title' => 'Admin List | The Home Team', 'allServices' => $services, 'simpleUsers' => $simpleUsers, 'adminUsers' => $adminUsers]);
+    }
+
+    public function destroy($id)
+    {
+        $user = User::findOrFail($id);
+
+        if (auth()->id() === $user->id) {
+            return redirect()->back()->with('error', 'You cannot delete your own account.');
+        }
+        $user->delete();
+        return redirect()->back()->with('success', 'User deleted successfully.');
+    }
+
+    public function promoteToAdmin($userId)
+    {
+        $user = User::findOrFail($userId);
+
+        if ($user->is_admin) {
+            return back()->with('error', 'This user is already an admin.');
         }
 
+        $user->update(['is_admin' => true]);
+
+        Admin::create([
+            'user_id' => $user->id,
+        ]);
+
+        return back()->with('success', 'User has been promoted to admin!');
+    }
+
+    public function updateRole(Request $request, $id)
+    {
+
+        $user = User::findOrFail($id);
+        $user->role = $request->role;
+        $user->save();
+
+        return redirect()->back()->with('success', 'Role updated successfully.');
+    }
 
 
-        public function myLogin()
-        {
-            return view('mylogin', ['title' => 'Login | The Home Team']);
-        }
-    
-        public function addLogin(Request $request)
-        {
-            $credentials = $request->validate([
-                'email' => 'required|email',
-                'password' => 'required|string',
-            ]);
-    
-            if (Auth::attempt($credentials, $request->remember)) {
-                $request->session()->regenerate();
-    
-                return redirect('/myAdminDashboard');
-            }
-    
-            return back()->withErrors([
-                'email' => 'The provided credentials do not match our records.',
-            ])->onlyInput('email');
-        }
-    
-        public function myLogout(Request $request)
-        {
-            Auth::logout();
-            $request->session()->invalidate();
-            $request->session()->regenerateToken();
-    
-            return redirect('/myHome');
-        }
+    public function myApplication()
+    {
+        $application = ServiceProviderApplication::where('user_id', Auth::id())->first();
+        $services = Services::all();
+        $serviceProviders = ServiceProviderApplication::where('application_status', 'approved')->get();
+        return view('myapplication', ['title' => 'Applications | The Home Team', 'services' => $services, 'application' => $application, 'providers' => $serviceProviders]);
+    }
 
-        public function showAdminList()
-        {
-            $services = Services::all();
-            $adminUsers = User::where('is_admin', true)->get();
-            $simpleUsers = User::where('is_admin', false)->get(); 
-            return view('myadminlist',['title' => 'Admin List | The Home Team','allServices'=>$services,'simpleUsers'=>$simpleUsers,'adminUsers'=>$adminUsers]);
-        }
-
-        public function destroy($id)
-        {
-            $user = User::findOrFail($id);
-
-            if (auth()->id() === $user->id) {
-           return redirect()->back()->with('error', 'You cannot delete your own account.');
-         }
-            $user->delete();
-            return redirect()->back()->with('success', 'User deleted successfully.');
-        }
-
-        public function promoteToAdmin($userId)
-        {
-            $user = User::findOrFail($userId);
-
-            if ($user->is_admin) {
-                return back()->with('error', 'This user is already an admin.');
-            }
-
-            $user->update(['is_admin' => true]);
-
-            Admin::create([
-                'user_id' => $user->id,     
-            ]);
-
-            return back()->with('success', 'User has been promoted to admin!');
-        }
-
-        public function updateRole(Request $request, $id)
-        {
-        
-            $user = User::findOrFail($id);
-            $user->role = $request->role;
-            $user->save();
-
-            return redirect()->back()->with('success', 'Role updated successfully.');
-        }
-
-
-        public function myApplication(){
-            $application = ServiceProviderApplication::where('user_id', Auth::id())->first();
-            $services = Services::all();
-            return view('myapplication',['title'=>'Applications | The Home Team','services'=>$services,'application'=>$application]);
-
-        }
-
-        public function serviceProviderDetails($id)
-        {
-            $user = User::findOrFail($id);
-            $serviceProvider = ServiceProviderApplication::where('user_id', $id)->first();
-            $service = ServiceProviderApplication::with('service')
-            ->where('user_id',$id)
+    public function serviceProviderDetails($id)
+    {
+        $user = User::findOrFail($id);
+        $serviceProvider = ServiceProviderApplication::where('user_id', $id)->first();
+        $service = ServiceProviderApplication::with('service')
+            ->where('user_id', $id)
             ->firstOrFail();
 
-            return view('serviceproviderdetails', [
-                'title' => 'Details | The Home Team',
-                'user' => $user,
-                'service'=>$service,
-                'service_provider'=>$serviceProvider
-            ]);
-        }
+        return view('serviceproviderdetails', [
+            'title' => 'Details | The Home Team',
+            'user' => $user,
+            'service' => $service,
+            'service_provider' => $serviceProvider
+        ]);
+    }
 
-
-
-
-
+    public function form()
+    {
+        $services = Services::all();
+        return view('serviceApplicationForm', ['title' => 'Applications | The Home Team', 'services' => $services]);
+    }
 }

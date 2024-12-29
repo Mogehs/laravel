@@ -15,7 +15,7 @@
 
 body {
     font-family: "Open Sans", sans-serif;
-    background: #010103;
+    background: white;
     color: #c69d33;
 }
 
@@ -91,7 +91,7 @@ h6 {
 }
 
 .back-to-top:hover {
-    background: #010103;
+    background: white;
     color: #fff;
 }
 
@@ -190,7 +190,7 @@ h6 {
     animation-fill-mode: both;
     border: 0;
     box-shadow: 0 5px 30px 0 rgba(198, 157, 51, 0.3);
-    background-color: #010103;
+    background-color: white;
 }
 
 .dropdown-menu .dropdown-header,
@@ -239,7 +239,7 @@ h6 {
         content: "";
         width: 13px;
         height: 13px;
-        background: #010103;
+        background: white;
         position: absolute;
         top: -7px;
         right: 20px;
@@ -261,7 +261,7 @@ h6 {
 
 /* Light Backgrounds */
 .bg-primary-light {
-    background-color: #010103;
+    background-color: white;
     border-color: #c69d33;
 }
 
@@ -275,7 +275,7 @@ h6 {
 .bg-warning-light,
 .bg-info-light,
 .bg-dark-light {
-    background-color: #010103;
+    background-color: white;
     border-color: #c69d33;
 }
 
@@ -285,13 +285,13 @@ h6 {
     border: 1px solid #c69d33;
     border-radius: 5px;
     box-shadow: 0px 0 30px rgba(198, 157, 51, 0.3);
-    background-color: #010103;
+    background-color: white;
 }
 
 .card-header,
 .card-footer {
     border-color: #c69d33;
-    background-color: #010103;
+    background-color: white;
     color: #c69d33;
     padding: 15px;
 }
@@ -341,7 +341,7 @@ h6 {
 /* Accordion */
 .accordion-item {
     border: 1px solid #c69d33;
-    background-color: #010103;
+    background-color: white;
 }
 
 .accordion-button:focus {
@@ -351,7 +351,7 @@ h6 {
 
 .accordion-button:not(.collapsed) {
     color: #c69d33;
-    background-color: #010103;
+    background-color: white;
 }
 
 .accordion-flush .accordion-button {
@@ -445,7 +445,7 @@ h6 {
     z-index: 997;
     height: 60px;
     box-shadow: 0px 2px 20px rgba(198, 157, 51, 0.3);
-    background-color: #010103;
+    background-color: white;
     padding-left: 20px;
 }
 
@@ -469,7 +469,7 @@ h6 {
         right: 0;
         padding: 20px;
         box-shadow: 0px 0px 15px 0px rgba(198, 157, 51, 0.3);
-        background: #010103;
+        background: white;
         z-index: 9999;
         transition: 0.3s;
         visibility: hidden;
@@ -496,7 +496,7 @@ h6 {
     border-radius: 3px;
     transition: 0.3s;
     width: 100%;
-    background-color: #010103;
+    background-color: white;
 }
 
 .header .search-form input:focus,
@@ -691,7 +691,7 @@ h6 {
     scrollbar-width: thin;
     scrollbar-color: #c69d33 transparent;
     box-shadow: 0px 0px 20px rgba(1, 41, 112, 0.1);
-    background-color: #010103;
+    background-color: white;
 }
 
 @media (max-width: 1199px) {
@@ -703,7 +703,7 @@ h6 {
 .sidebar::-webkit-scrollbar {
     width: 5px;
     height: 8px;
-    background-color: #010103;
+    background-color: white;
 }
 
 .sidebar::-webkit-scrollbar-thumb {
@@ -765,7 +765,7 @@ h6 {
     font-weight: 600;
     color: #c69d33;
     transition: 0.3;
-    background: #010103;
+    background: white;
     padding: 10px 15px;
     border-radius: 4px;
 }
@@ -778,7 +778,7 @@ h6 {
 
 .sidebar-nav .nav-link.collapsed {
     color: #c69d33;
-    background: #010103;
+    background: white;
 }
 
 .sidebar-nav .nav-link.collapsed i {
@@ -834,7 +834,7 @@ h6 {
 }
 
 .sidebar-nav .nav-content a.active i {
-    background-color: #010103;
+    background-color: white;
 }
 
 /*--------------------------------------------------------------
@@ -1048,7 +1048,7 @@ h6 {
 }
 
 .iconslist .icon {
-    background-color: #010103;
+    background-color: white;
     border-radius: 0.25rem;
     text-align: center;
     color: #c69d33;
